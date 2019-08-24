@@ -1,0 +1,582 @@
+<!DOCTYPE html><html>
+
+<head>
+<meta charset="utf-8">
+<title>LinearAlgebra</title>
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+</head>
+<body>
+<h2 id="toc_0">Math V2010: Linear Algebra</h2>
+
+<p><strong>Email:</strong> <a href="mailto:alishahi@math.columbia.edu">alishahi@math.columbia.edu</a>  </p>
+
+<p><strong>Time and Place:</strong> Monday-Wednesday 11:40a-12:55p at Math 312</p>
+
+<p><strong>Office hours:</strong> Monday: 4:30p-5:30p and Wednesday: 10a-11a or by appointment; at <strong>Math 613</strong></p>
+
+<p><strong>Teaching Assistants:</strong> </p>
+
+<ul>
+<li>Yinghui Wang (yw2450)--Wednesday 1pm-4pm at Math 406</li>
+<li>Andy Yang (ay2289)--Tuesday 10am-12pm at Math 406</li>
+<li>Yueyang Yu (yy2583) </li>
+</ul>
+
+<p><strong>Help Room Hours:</strong> <strong>Math 406</strong> The room will open on Monday 1/25- Schedule will be posted <a href="http://www.math.columbia.edu/general-information/help-rooms/406-math/">here</a>!</p>
+
+<hr>
+
+<p><strong>Textbook:</strong> 
+Otto Bretscher, <strong><em>Linear Algebra with Applications</em></strong>, 5th Edition (5e).<br>
+An earlier edition of the book is also fine and much cheaper, but the homework references come from the 5th edition. Please get the correct problems from the library or a friend.</p>
+
+<hr>
+
+<p><strong>Prerequisite</strong>: MATH V1201 (Calculus III), or the equivalent.</p>
+
+<hr>
+
+<p><strong>Description:</strong> Linear algebra is the study of systems of linear equation, how to solve them and understand the geometry of their solution. In this class, we will cover </p>
+
+<ul>
+<li>Linear equations: solving them using Gauss-Jordan elimination (Chapter 1)</li>
+<li>Vector spaces, subspaces, bases, dimension, linear transformations and their representations in terms of matrices (Chapters 2, 3, 4) </li>
+<li>Orthogonality; orthonolmal bases, Gram-Schmidt process and QR factorization (Chapter 5)</li>
+<li>Determinant and its properties (Chapter 6)</li>
+<li>Eigenvalues and Eigenvectors (Chapter 7)</li>
+</ul>
+
+<p>and additional topics about</p>
+
+<ul>
+<li>Symmetric matrices and Quadratic forms (Chapter 8)</li>
+<li>Linear differential equation (Chapter 9)</li>
+</ul>
+
+<p>as time allows.</p>
+
+<hr>
+
+<p><strong>Homework:</strong> There will be problem sets every week, due at the beginning of class on Mondays. If you can&#39;t make it to the class, put it in the assigned box outside of 410 Math. </p>
+
+<p>You are welcome to work on your assignments together, but you must write up in your own words. 
+<strong>Late homeworks are not accepted.</strong> Solutions of written homeworks will be posted on Courseworks after each assignment is due.</p>
+
+<p>Problem sets will be posted weekly on both the assignment section of Coursework and here:</p>
+
+<p><a href="Problemset1.html">Problem set 1</a><br>
+Problem set 2<br>
+Problem set 3<br>
+Problem set 4<br>
+Problem set 5<br>
+Problem set 6<br>
+Problem set 7<br>
+Problem set 8<br>
+Problem set 9<br>
+Problem set 10<br>
+Problem set 11<br>
+Problem set 12  </p>
+
+<hr>
+
+<p><strong>Exam:</strong> There will be two 75-minute in-class midterm exams, and a final exam.</p>
+
+<p>Midterm 1: February 17</p>
+
+<p>Midterm 2: March 30</p>
+
+<p>Final: Friday May 6, 9am-12am</p>
+
+<p>If you have a conflict with any of the exam dates, you must contact me ahead of time so we can make arrangements. (At least a week ahead is preferable.) If you are unable to take the exam because of a medical problem, you must go to the health center and get a note from them -- and contact me as soon as you can.</p>
+
+<hr>
+
+<p><strong>Grading:</strong> The final course grade will be determined by:</p>
+
+<p>Homework: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10%</p>
+
+<p>Midterm 1:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 20%</p>
+
+<p>Midterm 2:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 20%</p>
+
+<p>Final: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; 50%</p>
+
+<p>The lowest two homework scores will be dropped. </p>
+
+<hr>
+
+<p><strong>Getting help</strong>. If you&#39;re having trouble, get help immediately. Everyone who works seriously on mathematics struggles. But if you don&#39;t get help promptly you will soon be completely lost. The first places to look for help are my office hours and the course TA in the help room. Talking to your other classmates can also be helpful. Finally, there is information about tutoring resources through CC / SEAS, GS, and Barnard <a href="http://www.math.columbia.edu/general-information/tutoring-services/">here</a>.</p>
+
+<hr>
+
+<p><strong>Student with disabilities:</strong> Students must register with the Disability Services and present an accomodation letter before the exam or other accomodations that can be provided. More information is available on the <a href="http://health.columbia.edu/disability-services">Disability Services</a> webpage.</p>
+
+<hr>
+
+<p><strong>Tentetive Syllabus</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Sections</th>
+<th>Notes</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1/20</td>
+<td>1.1, 1.2</td>
+<td>Welcome to linear algebra: MathV2010</td>
+</tr>
+<tr>
+<td>1/25</td>
+<td>1.2,1.3</td>
+<td></td>
+</tr>
+<tr>
+<td>1/27</td>
+<td>2.1</td>
+<td></td>
+</tr>
+<tr>
+<td>2/1</td>
+<td>2.2-2.3</td>
+<td>HW 1 Due</td>
+</tr>
+<tr>
+<td>2/3</td>
+<td>2.3-2.4</td>
+<td></td>
+</tr>
+<tr>
+<td>2/8</td>
+<td>3.1</td>
+<td>HW 2 Due</td>
+</tr>
+<tr>
+<td>2/10</td>
+<td>3.2</td>
+<td></td>
+</tr>
+<tr>
+<td>2/15</td>
+<td>Review</td>
+<td>HW 3 Due</td>
+</tr>
+<tr>
+<td>2/17</td>
+<td>Midterm 1</td>
+<td></td>
+</tr>
+<tr>
+<td>2/22</td>
+<td>3.3</td>
+<td></td>
+</tr>
+<tr>
+<td>2/24</td>
+<td>3.4</td>
+<td>CC, GS, Barnard drop deadline 2/23</td>
+</tr>
+<tr>
+<td>2/29</td>
+<td>4.1-4.2</td>
+<td>HW 4 Due</td>
+</tr>
+<tr>
+<td>3/2</td>
+<td>4.2-4.3</td>
+<td></td>
+</tr>
+<tr>
+<td>3/7</td>
+<td>5.1</td>
+<td>HW 5 Due</td>
+</tr>
+<tr>
+<td>3/9</td>
+<td>5.2-5.3</td>
+<td></td>
+</tr>
+<tr>
+<td>3/14</td>
+<td>Spring break</td>
+<td></td>
+</tr>
+<tr>
+<td>3/16</td>
+<td>Spring break</td>
+<td></td>
+</tr>
+<tr>
+<td>3/21</td>
+<td>5.4</td>
+<td>HW 6 Due</td>
+</tr>
+<tr>
+<td>3/23</td>
+<td>5.5</td>
+<td></td>
+</tr>
+<tr>
+<td>3/28</td>
+<td>Review</td>
+<td>HW 7 Due</td>
+</tr>
+<tr>
+<td>3/30</td>
+<td>Midterm 2</td>
+<td></td>
+</tr>
+<tr>
+<td>4/4</td>
+<td>6.1</td>
+<td>HW 8 Due</td>
+</tr>
+<tr>
+<td>4/6</td>
+<td>6.2</td>
+<td></td>
+</tr>
+<tr>
+<td>4/11</td>
+<td>6.3-7.1</td>
+<td>HW 9 Due</td>
+</tr>
+<tr>
+<td>4/13</td>
+<td>7.2-7.3</td>
+<td></td>
+</tr>
+<tr>
+<td>4/18</td>
+<td>7.3-7.4</td>
+<td>HW 10 Due</td>
+</tr>
+<tr>
+<td>4/20</td>
+<td>7.5</td>
+<td></td>
+</tr>
+<tr>
+<td>4/25</td>
+<td>8.1</td>
+<td>HW 11 Due</td>
+</tr>
+<tr>
+<td>4/27</td>
+<td>8.2</td>
+<td></td>
+</tr>
+<tr>
+<td>5/2</td>
+<td>Review</td>
+<td>HW 12 Due</td>
+</tr>
+</tbody>
+</table>
+
+
+</body>
+
+</html>
